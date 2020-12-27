@@ -15,6 +15,12 @@ registerApplication({
   activeWhen: ["/"]
 });
 
+registerApplication({
+  name: "@gl/main-container",
+  app: (): Promise<LifeCycles> => System.import("@gl/main-container"),
+  activeWhen: ["/"]
+});
+
 start({
   urlRerouteOnly: true,
 });

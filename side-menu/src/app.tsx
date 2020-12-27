@@ -1,7 +1,10 @@
 import React from "react";
 import { SidebarComponent } from "@syncfusion/ej2-react-navigations";
+import myPacel  from '../../main-container/src/gl-main-container';
+import Parcel from 'single-spa-react/parcel';
 
 import "./app.scss";
+import SingleSpaReact from "single-spa-react";
 
 class App extends React.Component {
   public sidebarobj: SidebarComponent | null = null;
@@ -39,19 +42,9 @@ class App extends React.Component {
             </div>
             <div className="sub-title">Place your primary content here.</div>
           </SidebarComponent>
-          <div>
-            <div className="title default">Main content</div>
-          </div>
+          <Parcel config={myPacel} wrapWith="div" />
         </div>
       </div>
-      // <SidebarComponent id="default-sidebar" ref={(Sidebar:SidebarComponent) => this.sidebarobj = Sidebar} >
-      //     <div className="title-header">
-      //         <div style={{ display: 'inline-block' }}> Sidebar </div>
-      //     </div>
-      //     <div className="sub-title">
-      //         Place your primary content here.
-      //     </div>
-      // </SidebarComponent>
     );
   }
 }
