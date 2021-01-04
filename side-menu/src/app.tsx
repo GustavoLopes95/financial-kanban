@@ -2,6 +2,7 @@ import React from "react";
 import { SidebarComponent } from "@syncfusion/ej2-react-navigations";
 import myPacel  from '../../main-container/src/gl-main-container';
 import Parcel from 'single-spa-react/parcel';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 import "./app.scss";
 import SingleSpaReact from "single-spa-react";
@@ -40,7 +41,12 @@ class App extends React.Component {
                 onClick={this.closeClick.bind(this)}
               ></span>
             </div>
-            <div className="sub-title">Place your primary content here.</div>
+            <div className="sub-title flex flex-col">
+              <Router>
+                <Link to="/">Dashboard</Link>
+                <Link to="/products">Products</Link>
+              </Router>
+            </div>
           </SidebarComponent>
           <Parcel config={myPacel} wrapWith="div" />
         </div>

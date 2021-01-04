@@ -28,6 +28,7 @@
     "@testing-library/react": "^11.2.2",
     "@types/jest": "^25.2.1",
     "@types/node-sass": "^4.11.1",
+    "@types/react-router-dom": "^5.1.7",
     "@types/single-spa-react": "^3.0.0",
     "@types/systemjs": "^6.1.0",
     "babel-eslint": "^11.0.0-beta.2",
@@ -62,7 +63,11 @@
   },
   "dependencies": {
     "@syncfusion/ej2-react-navigations": "^18.4.31",
+    "autoprefixer": "^10.1.0",
+    "postcss": "^8.2.2",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "react-router-dom": "^5.2.0",
+    "tailwindcss": "^2.0.2"
   }
 }

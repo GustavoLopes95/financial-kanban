@@ -1,6 +1,6 @@
 import React from "react";
 import App from './app';
 
-export default function Root(props) {
+export default function Root() {
   return <App />;
 }
