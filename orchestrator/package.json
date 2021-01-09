@@ -44,5 +44,6 @@
   },
   "dependencies": {
     "single-spa": "^5.8.3"
-  }
+  },
+  "proxy": "http://localhost:3000"
 }

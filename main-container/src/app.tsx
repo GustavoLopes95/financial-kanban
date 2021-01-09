@@ -1,6 +1,7 @@
 import React, { CSSProperties } from 'react';
 import { KanbanComponent, ColumnsDirective, ColumnDirective } from "@syncfusion/ej2-react-kanban";
-import data from './datasourcer.json';
+import { DataManager, ODataAdaptor } from '@syncfusion/ej2-data';
+import { Ajax } from '@syncfusion/ej2-base';
 import './app.scss';
 import NewCardFormModal from './views/kaban/fragments/new-card-form-modal';
 
@@ -15,6 +16,7 @@ const styles = {
 
 const App = () => {
 	const [ shouldOpenModal, setShouldOpenModal ] = React.useState(false);
+	const [ cards, setCards ] = React.useState<Array<any>>([]);
 
 	const openDialog = () => {
 		setShouldOpenModal(true);
@@ -23,6 +25,31 @@ const App = () => {
 	const closeDialog = () => {
 		setShouldOpenModal(false);
 	}
+
+	const createNewCard = (data) => {
+		console.log('data', data);
+		fetch('http://localhost:3000/cards', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-type': 'application/json'
+      }
+    }).then(() => getCards())
+	}
+
+	const getCards = async () => {
+		const result: any = await new DataManager({
+			url: 'http://localhost:3000/cards',
+			adaptor: new ODataAdaptor,
+			crossDomain: true,
+		});
+		console.log('result', result);
+		setCards(result);
+	}
+
+	React.useEffect(() => {
+		getCards();
+	}, [])
 
 	return (
 			<div style={styles.mainDiv as CSSProperties}>
@@ -36,16 +63,16 @@ const App = () => {
 									</button>
 							</div>
 					</div>
-					<KanbanComponent className='mt-3' id="kanban" keyField="Status" dataSource={data} cardSettings={{contentField: "Summary", headerField: "Id", showHeader: true}}>
+					<KanbanComponent className='mt-3' id="kanban" keyField="status" dataSource={cards} cardSettings={{contentField: "summary", headerField: "id", showHeader: true}}>
 							<ColumnsDirective>
-								<ColumnDirective headerText="To Do" keyField="Open"/>
-								<ColumnDirective headerText="In Progress" keyField="InProgress"/>
-								<ColumnDirective headerText="Testing" keyField="Testing"/>
-								<ColumnDirective headerText="Done" keyField="Close"/>
+								<ColumnDirective headerText="To Do" keyField="open"/>
+								<ColumnDirective headerText="In Progress" keyField="inProgress"/>
+								<ColumnDirective headerText="Testing" keyField="testing"/>
+								<ColumnDirective headerText="Done" keyField="close"/>
 							</ColumnsDirective>
 					</KanbanComponent>
 
-				<NewCardFormModal open={shouldOpenModal} onClose={closeDialog}/>
+				<NewCardFormModal shouldOpen={shouldOpenModal} onClose={closeDialog} createNewCard={createNewCard}/>
 			</div>
     );
 }
